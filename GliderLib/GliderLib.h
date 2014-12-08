@@ -11,8 +11,8 @@
 
 #include "Arduino.h"
 
-class LEDPanel
-{
+class LEDPanel				// This is a class essentially to control a lot of
+{							// LED panels on an exhibit.
 	public:
 		LEDPanel(int LEDPin);
 		void turnOn();
@@ -24,5 +24,11 @@ class LEDPanel
 		uint8_t LEDPin_;
 		uint8_t pinState_;
 };	
+
+
+void DigitalSignageCtrl();
+
+
+void DisplayPwrCtrl();
 
 #endif

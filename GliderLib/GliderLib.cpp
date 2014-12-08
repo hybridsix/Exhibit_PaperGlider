@@ -21,6 +21,7 @@ void LEDPanel::turnOn()
 	// this helps to prevent flicker
 	pinState_ = digitalRead(LEDPin_);
 	if (!pinState_){
+		//Serial.println("setting to high");
 		digitalWrite(LEDPin_, HIGH);
 	}
 }	
@@ -31,6 +32,7 @@ void LEDPanel::turnOff()
 	// this helps to prevent flicker
 	pinState_ = digitalRead(LEDPin_);
 	if (pinState_){
+		//Serial.println("setting to LOW");
 		digitalWrite(LEDPin_, LOW);
 	}	
 }
