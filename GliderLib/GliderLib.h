@@ -21,7 +21,8 @@ class LEDPanel
 		void setMaxBrightness();
 	
 	private:
-		int LEDPin_;
+		uint8_t LEDPin_;
+		uint8_t pinState_;
 };	
 
 #endif

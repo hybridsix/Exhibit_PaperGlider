@@ -10,18 +10,17 @@
 
 LEDPanel::LEDPanel(int LEDPin)
 {
-	pinMode(LEDPin, OUTPUT);
 	//digitalWrite
 	LEDPin_ = LEDPin;
-	
+	pinMode(LEDPin, OUTPUT);	
 }
 
 void LEDPanel::turnOn()
 {
 	// first check to see if the panel is already on
 	// this helps to prevent flicker
-	uint8_t pinState = digitalRead(LEDPin_);
-	if (!pinState){
+	pinState_ = digitalRead(LEDPin_);
+	if (!pinState_){
 		digitalWrite(LEDPin_, HIGH);
 	}
 }	
@@ -30,8 +29,8 @@ void LEDPanel::turnOff()
 {
 	// first check to see if the panel is already on
 	// this helps to prevent flicker
-	uint8_t pinState = digitalRead(LEDPin_);
-	if (pinState){
+	pinState_ = digitalRead(LEDPin_);
+	if (pinState_){
 		digitalWrite(LEDPin_, LOW);
 	}	
 }
