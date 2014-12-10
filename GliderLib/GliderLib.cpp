@@ -7,12 +7,14 @@
 
 #include "Arduino.h"
 #include "GliderLib.h"
+#include "EEPROM.h"
 
 LEDPanel::LEDPanel(int LEDPin)
 {
 	//digitalWrite
 	LEDPin_ = LEDPin;
-	pinMode(LEDPin, OUTPUT);	
+	pinMode(LEDPin, OUTPUT);
+	brightLevel_ = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val	
 }
 
 void LEDPanel::turnOn()
@@ -22,7 +24,7 @@ void LEDPanel::turnOn()
 	pinState_ = digitalRead(LEDPin_);
 	if (!pinState_){
 		//Serial.println("setting to high");
-		digitalWrite(LEDPin_, HIGH);
+		analogWrite(LEDPin_, brightLevel_);
 	}
 }	
 
@@ -33,7 +35,7 @@ void LEDPanel::turnOff()
 	pinState_ = digitalRead(LEDPin_);
 	if (pinState_){
 		//Serial.println("setting to LOW");
-		digitalWrite(LEDPin_, LOW);
+		analogWrite(LEDPin_, LOW);
 	}	
 }
 

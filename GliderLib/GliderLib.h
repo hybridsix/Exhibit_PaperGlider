@@ -10,6 +10,7 @@
 #define GliderLib_h
 
 #include "Arduino.h"
+#define BRIGHT_LVL_EEPROM 0 // Location of the global brightness Level
 
 class LEDPanel				// This is a class essentially to control a lot of
 {							// LED panels on an exhibit.
@@ -18,11 +19,13 @@ class LEDPanel				// This is a class essentially to control a lot of
 		void turnOn();
 		void turnOff();
 		void setBrightness();
-		void setMaxBrightness();
-	
+		void setMaxBrightness();		
+
 	private:
 		uint8_t LEDPin_;
 		uint8_t pinState_;
+		uint8_t brightLevel_; 
+
 };	
 
 
