@@ -15,10 +15,10 @@
 class LEDPanel				// This is a class essentially to control a lot of
 {							// LED panels on an exhibit.
 	public:
-		LEDPanel(int LEDPin);
+		LEDPanel(uint8_t LEDPin);
 		void turnOn();
 		void turnOff();
-		void updateBrightness();
+		void updateBrightness(uint8_t runningBrightness);
 		void setMaxBrightness();		
 
 	private:

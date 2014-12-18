@@ -51,9 +51,9 @@ LEDPanel Panel_CR (PWM_PIN11);
 void setup(){
 	digitalWrite(DIAG_PIN, HIGH);
 		Serial.begin(9600);
-		runningBrightVal = EEPROM.read(BRIGHT_LEVEL_EEPROM) // Set the usable current brightness to eeprom val	
+		runningBrightVal = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val	
 		//delay(somevalue);
-	digitalWrite(DIAGPIN, LOW);
+	digitalWrite(DIAG_PIN, LOW);
 }
 
 
@@ -82,7 +82,8 @@ void loop(){
   if (remoteBtnD_state){            // If D button is being pressed
     Serial.println("Remote Button D Detected");
       shutDown();                   // run the shutDown function
-  }
+	  brightLevelWrite();			// write brigthness value to eeprom
+	  }
   
 }
 
@@ -125,7 +126,7 @@ void shutDown(){
 			turnAllPanelsOff();			// turns the panels off
 			brightLevelWrite();			// eeprom brightness write 
 			delay(5000);
-		digitalWrite(DIAGPIN, LOW);
+		digitalWrite(DIAG_PIN, LOW);
   
   systemState = 0;                      // Set system state represenation to off
 }
@@ -144,7 +145,7 @@ void turnAllPanelsOn(){
 	delay (250);
 	Panel_AL.turnOn();
 	Panel_AR.turnOn();
-	delay (100) 		// delay before dropping back to program
+	delay (100); 		// delay before dropping back to program
 }
 
 /***********************************************************
@@ -152,7 +153,7 @@ void turnAllPanelsOn(){
 ***********************************************************/
 void turnAllPanelsOff(){
 
-	// turn on all the led panels in sequence? at least its sorta fancy. 
+	// turn off all the led panels in sequence? at least its sorta fancy. 
 	Panel_CL.turnOff();
 	Panel_CR.turnOff();
 	delay (250);		// delay for some effect
@@ -161,31 +162,35 @@ void turnAllPanelsOff(){
 	delay (250);
 	Panel_AL.turnOff();
 	Panel_AR.turnOff();
-	delay (100) 		// delay before dropping back to program
+	delay (100); 		// delay before dropping back to program
 }
 
 /***********************************************************
 *                 brightLevelWrite();                      *
 ***********************************************************/
 void brightLevelWrite(){
-	EEPROM.write(BRIGHT_LVL_EEPROM, runningBrightVal);	// Writes out current brightness for next start up time
+	// Writes out current brightness for next start up time
+	EEPROM.write(BRIGHT_LVL_EEPROM, runningBrightVal);	
 }
 
 /***********************************************************
 *                 toggleBrigthtness();                      *
 ***********************************************************/
 void toggleBrightness(){
-	if (runningBrightVal < 255);
-		runningBrightVal += (BRIGHT_INCRIMENT_VALUE);
+	if (runningBrightVal < 255){
+		runningBrightVal += (BRIGHT_INCRIMENT_VAL);
+		if (255 - runningBrightVal < BRIGHT_INCRIMENT_VAL){
+			runningBrightVal = (255);		// max it out if the next step won't get it there
 		}
+	}
 	else {
-		runningBrightVal = BRIGHT_INCRIMENT_VALUE;		// reset to lowest value
-		Panel_CL.turnOn();
+		runningBrightVal = (BRIGHT_INCRIMENT_VAL);		// reset to lowest value
 	}
 	// pass the new brightness level to the objects/panels
-	Panel_CR.updateBrightness(runningBrightVal);
-	Panel_BL.updateBrightness(runningBrightVal);
-	Panel_BR.updateBrightness(runningBrightVal);
-	Panel_AL.updateBrightness(runningBrightVal);
-	Panel_AR.updateBrightness(runningBrightVal);
+		Panel_CL.updateBrightness(runningBrightVal);
+		Panel_CR.updateBrightness(runningBrightVal);
+		Panel_BL.updateBrightness(runningBrightVal);
+		Panel_BR.updateBrightness(runningBrightVal);
+		Panel_AL.updateBrightness(runningBrightVal);
+		Panel_AR.updateBrightness(runningBrightVal);
 }

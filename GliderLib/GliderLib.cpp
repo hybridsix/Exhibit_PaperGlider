@@ -9,7 +9,7 @@
 #include "GliderLib.h"
 #include "EEPROM.h"
 
-LEDPanel::LEDPanel(int LEDPin)
+LEDPanel::LEDPanel(uint8_t LEDPin)
 {
 	//digitalWrite
 	LEDPin_ = LEDPin;
@@ -37,7 +37,7 @@ void LEDPanel::turnOff(){
 	}	
 }
 
-void LEDPanel::updateBrightness(int runningBrightness){
+void LEDPanel::updateBrightness(uint8_t runningBrightness){
 	//will need to write an analog write function
 	runningBrightness_ = runningBrightness;
 	analogWrite(LEDPin_, runningBrightness_);
