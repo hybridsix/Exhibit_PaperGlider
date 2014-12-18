@@ -25,6 +25,7 @@
 #define REMOTE_B_PIN          A1	// they are reversed on the receiver board (as normal)
 #define REMOTE_C_PIN          A2
 #define REMOTE_D_PIN          A3
+#define BRIGHT_INCRIMENT_VAL  25	// set how many "steps" of brightness you'll have
 
 /***********************************************************
 *                      GLOBAL VARS                         *
@@ -168,4 +169,23 @@ void turnAllPanelsOff(){
 ***********************************************************/
 void brightLevelWrite(){
 	EEPROM.write(BRIGHT_LVL_EEPROM, runningBrightVal);	// Writes out current brightness for next start up time
+}
+
+/***********************************************************
+*                 toggleBrigthtness();                      *
+***********************************************************/
+void toggleBrightness(){
+	if (runningBrightVal < 255);
+		runningBrightVal += (BRIGHT_INCRIMENT_VALUE);
+		}
+	else {
+		runningBrightVal = BRIGHT_INCRIMENT_VALUE;		// reset to lowest value
+		Panel_CL.turnOn();
+	}
+	// pass the new brightness level to the objects/panels
+	Panel_CR.updateBrightness(runningBrightVal);
+	Panel_BL.updateBrightness(runningBrightVal);
+	Panel_BR.updateBrightness(runningBrightVal);
+	Panel_AL.updateBrightness(runningBrightVal);
+	Panel_AR.updateBrightness(runningBrightVal);
 }

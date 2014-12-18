@@ -37,8 +37,8 @@ void LEDPanel::turnOff(){
 	}	
 }
 
-void LEDPanel::updateBrightness(int brightness){
+void LEDPanel::updateBrightness(int runningBrightness){
 	//will need to write an analog write function
-	
-	analogWrite(LEDPin_, brightLevel_);
+	runningBrightness_ = runningBrightness;
+	analogWrite(LEDPin_, runningBrightness_);
 }

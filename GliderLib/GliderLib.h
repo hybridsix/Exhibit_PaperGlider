@@ -25,6 +25,7 @@ class LEDPanel				// This is a class essentially to control a lot of
 		uint8_t LEDPin_;
 		uint8_t pinState_;
 		uint8_t brightLevel_; 
+		uint8_t runningBrightness_;
 
 };	
 
