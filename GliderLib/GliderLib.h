@@ -18,7 +18,7 @@ class LEDPanel				// This is a class essentially to control a lot of
 		LEDPanel(int LEDPin);
 		void turnOn();
 		void turnOff();
-		void setBrightness();
+		void updateBrightness();
 		void setMaxBrightness();		
 
 	private:

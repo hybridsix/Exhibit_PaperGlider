@@ -17,8 +17,7 @@ LEDPanel::LEDPanel(int LEDPin)
 	brightLevel_ = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val	
 }
 
-void LEDPanel::turnOn()
-{
+void LEDPanel::turnOn(){
 	// first check to see if the panel is already on
 	// this helps to prevent flicker
 	pinState_ = digitalRead(LEDPin_);
@@ -28,8 +27,7 @@ void LEDPanel::turnOn()
 	}
 }	
 
-void LEDPanel::turnOff()
-{
+void LEDPanel::turnOff(){
 	// first check to see if the panel is already on
 	// this helps to prevent flicker
 	pinState_ = digitalRead(LEDPin_);
@@ -39,7 +37,8 @@ void LEDPanel::turnOff()
 	}	
 }
 
-void LEDPanel::setBrightness()
-{
+void LEDPanel::updateBrightness(int brightness){
 	//will need to write an analog write function
+	
+	analogWrite(LEDPin_, brightLevel_);
 }
