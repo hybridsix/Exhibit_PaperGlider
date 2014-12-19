@@ -51,7 +51,13 @@ LEDPanel Panel_CR (PWM_PIN11, "CR");
 void setup(){
 	digitalWrite(DIAG_PIN, HIGH);
 		Serial.begin(9600);
-		runningBrightVal = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val	
+		runningBrightVal = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val
+		
+		pinMode(REMOTE_A_PIN, OUTPUT);
+		pinMode(REMOTE_B_PIN, OUTPUT);
+		pinMode(REMOTE_C_PIN, OUTPUT);
+		pinMode(REMOTE_D_PIN, OUTPUT);
+			
 		delay(1000);
 	digitalWrite(DIAG_PIN, LOW);
 }
@@ -77,6 +83,7 @@ void loop(){
     Serial.println("Remote Button D Detected");
       shutDown();                   // run the shutDown function
 	  brightLevelWrite();			// write brigthness value to eeprom
+	  delay(500);					// delay after off to debounce
   }
 
   if (remoteBtnD_state){            // If D button is being pressed
@@ -193,4 +200,5 @@ void toggleBrightness(){
 		Panel_BR.updateBrightness(runningBrightVal);
 		Panel_AL.updateBrightness(runningBrightVal);
 		Panel_AR.updateBrightness(runningBrightVal);
+		delay(100); // program delay so that button bouncing is less of an issue 
 }
