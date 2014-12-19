@@ -67,20 +67,20 @@ void setup(){
 *                          LOOP                            *
 ***********************************************************/
 void loop(){
-  readRemoteButtonStates() ;
+ readRemoteButtonStates() ;
   
   if (remoteBtnA_state){            // If A button is being pressed
     Serial.println("Remote Button A Detected");
       startUp();                    // run the startUp function
   }
 
-  if (remoteBtnB_state){            // If D button is being pressed
-    Serial.println("Remote Button D Detected");
+  if (remoteBtnB_state){            // If B button is being pressed
+    Serial.println("Remote Button B Detected");
       toggleBrightness();           // toggles through brightness values
   }
 
-  if (remoteBtnC_state){            // If D button is being pressed
-    Serial.println("Remote Button D Detected");
+  if (remoteBtnC_state){            // If C button is being pressed
+    Serial.println("Remote Button C Detected");
       shutDown();                   // run the shutDown function
 	  brightLevelWrite();			// write brigthness value to eeprom
 	  delay(500);					// delay after off to debounce
@@ -90,7 +90,8 @@ void loop(){
     Serial.println("Remote Button D Detected");
       shutDown();                   // run the shutDown function
 	  brightLevelWrite();			// write brigthness value to eeprom
-	  }
+	  delay(500);	
+  }
   
 }
 
