@@ -185,24 +185,26 @@ void brightLevelWrite(){
 *                 toggleBrigthtness();                      *
 ***********************************************************/
 void toggleBrightness(){
-	if (255 == runningBrightVal){
-		runningBrightVal = (BRIGHT_INCRIMENT_VAL);		// reset to lowest value
-	}
-	else {
-		if (255 - runningBrightVal < BRIGHT_INCRIMENT_VAL){
-			runningBrightVal = (255);		// max it out if the next step won't get it there
+	if (systemState){
+		if (255 == runningBrightVal){
+			runningBrightVal = (BRIGHT_INCRIMENT_VAL);		// reset to lowest value
 		}
-		else{
-			runningBrightVal += BRIGHT_INCRIMENT_VAL;
+		else {
+			if (255 - runningBrightVal < BRIGHT_INCRIMENT_VAL){
+				runningBrightVal = (255);		// max it out if the next step won't get it there
+			}
+			else{
+				runningBrightVal += BRIGHT_INCRIMENT_VAL;
+			}
+		
 		}
-	
+		// pass the new brightness level to the objects/panels
+			Panel_CL.updateBrightness(runningBrightVal);
+			Panel_CR.updateBrightness(runningBrightVal);
+			Panel_BL.updateBrightness(runningBrightVal);
+			Panel_BR.updateBrightness(runningBrightVal);
+			Panel_AL.updateBrightness(runningBrightVal);
+			Panel_AR.updateBrightness(runningBrightVal);
+			delay(100); // program delay so that button bouncing is less of an issue 
 	}
-	// pass the new brightness level to the objects/panels
-		Panel_CL.updateBrightness(runningBrightVal);
-		Panel_CR.updateBrightness(runningBrightVal);
-		Panel_BL.updateBrightness(runningBrightVal);
-		Panel_BR.updateBrightness(runningBrightVal);
-		Panel_AL.updateBrightness(runningBrightVal);
-		Panel_AR.updateBrightness(runningBrightVal);
-		delay(100); // program delay so that button bouncing is less of an issue 
 }
