@@ -112,7 +112,7 @@ void readRemoteButtonStates(){
 void startUp(){                      // system start up sequence
 	digitalWrite(DIAG_PIN, HIGH);
 	Serial.println("Startup sequence started");
-		void turnAllPanelsOn();	
+		turnAllPanelsOn();	
 		delay(5000);
 	digitalWrite(DIAG_PIN, LOW);
   
@@ -185,14 +185,17 @@ void brightLevelWrite(){
 *                 toggleBrigthtness();                      *
 ***********************************************************/
 void toggleBrightness(){
-	if (runningBrightVal < 255){
-		runningBrightVal += (BRIGHT_INCRIMENT_VAL);
+	if (255 == runningBrightVal){
+		runningBrightVal = (BRIGHT_INCRIMENT_VAL);		// reset to lowest value
+	}
+	else {
 		if (255 - runningBrightVal < BRIGHT_INCRIMENT_VAL){
 			runningBrightVal = (255);		// max it out if the next step won't get it there
 		}
-	}
-	else {
-		runningBrightVal = (BRIGHT_INCRIMENT_VAL);		// reset to lowest value
+		else{
+			runningBrightVal += BRIGHT_INCRIMENT_VAL;
+		}
+	
 	}
 	// pass the new brightness level to the objects/panels
 		Panel_CL.updateBrightness(runningBrightVal);
