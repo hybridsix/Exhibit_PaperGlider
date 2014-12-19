@@ -38,12 +38,12 @@ uint8_t  systemState      = 0;       // Used to track system intended state for 
 uint8_t  runningBrightVal;
 
 //LED Panel/GliderLib Object Inits
-LEDPanel Panel_AL (PWM_PIN3);		// panels are labeled according to section 
-LEDPanel Panel_AR (PWM_PIN5);       // on the glider. A, B, C sections
-LEDPanel Panel_BL (PWM_PIN6);       // Section A is closest to launchers          	
-LEDPanel Panel_BR (PWM_PIN9);       // Then its just Left/right (from user pos)      
-LEDPanel Panel_CL (PWM_PIN10);              
-LEDPanel Panel_CR (PWM_PIN11);
+LEDPanel Panel_AL (PWM_PIN3,  "AL");		// panels are labeled according to section 
+LEDPanel Panel_AR (PWM_PIN5,  "AR");       // on the glider. A, B, C sections
+LEDPanel Panel_BL (PWM_PIN6,  "BL");       // Section A is closest to launchers          	
+LEDPanel Panel_BR (PWM_PIN9,  "BR");       // Then its just Left/right (from user pos)      
+LEDPanel Panel_CL (PWM_PIN10, "CL");              
+LEDPanel Panel_CR (PWM_PIN11, "CR");
 
 /***********************************************************
 *                          SETUP                           *
@@ -52,7 +52,7 @@ void setup(){
 	digitalWrite(DIAG_PIN, HIGH);
 		Serial.begin(9600);
 		runningBrightVal = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val	
-		//delay(somevalue);
+		delay(1000);
 	digitalWrite(DIAG_PIN, LOW);
 }
 

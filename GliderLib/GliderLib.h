@@ -15,7 +15,7 @@
 class LEDPanel				// This is a class essentially to control a lot of
 {							// LED panels on an exhibit.
 	public:
-		LEDPanel(uint8_t LEDPin);
+		LEDPanel(uint8_t LEDPin, String objName);
 		void turnOn();
 		void turnOff();
 		void updateBrightness(uint8_t runningBrightness);
@@ -26,6 +26,7 @@ class LEDPanel				// This is a class essentially to control a lot of
 		uint8_t pinState_;
 		uint8_t brightLevel_; 
 		uint8_t runningBrightness_;
+		String objName_;
 
 };	
 
