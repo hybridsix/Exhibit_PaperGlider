@@ -21,10 +21,10 @@
 #define PWM_PIN10             10
 #define PWM_PIN11             11	// end pin mapping for PWM
 #define DIAG_PIN              13	// onboard LED Diag
-#define REMOTE_A_PIN          A0	// next 4 pins are for the remote input
-#define REMOTE_B_PIN          A1	// they are reversed on the receiver board (as normal)
-#define REMOTE_C_PIN          A2
-#define REMOTE_D_PIN          A3
+#define REMOTE_A_PIN          A3	// next 4 pins are for the remote input
+#define REMOTE_B_PIN          A2	// they are reversed on the receiver board (as normal)
+#define REMOTE_C_PIN          A1
+#define REMOTE_D_PIN          A0
 #define BRIGHT_INCRIMENT_VAL  25	// set how many "steps" of brightness you'll have
 
 /***********************************************************
@@ -38,12 +38,12 @@ uint8_t  systemState      = 0;       // Used to track system intended state for 
 uint8_t  runningBrightVal;
 
 //LED Panel/GliderLib Object Inits
-LEDPanel Panel_AL (PWM_PIN3,  "AL");		// panels are labeled according to section 
-LEDPanel Panel_AR (PWM_PIN5,  "AR");       // on the glider. A, B, C sections
-LEDPanel Panel_BL (PWM_PIN6,  "BL");       // Section A is closest to launchers          	
-LEDPanel Panel_BR (PWM_PIN9,  "BR");       // Then its just Left/right (from user pos)      
-LEDPanel Panel_CL (PWM_PIN10, "CL");              
-LEDPanel Panel_CR (PWM_PIN11, "CR");
+LEDPanel Panel_AL (PWM_PIN10,  "AL");		// panels are labeled according to section 
+LEDPanel Panel_AR (PWM_PIN6,  "AR");       // on the glider. A, B, C sections
+LEDPanel Panel_BL (PWM_PIN9,  "BL");       // Section A is closest to launchers          	
+LEDPanel Panel_BR (PWM_PIN5,  "BR");       // Then its just Left/right (from user pos)      
+LEDPanel Panel_CL (PWM_PIN11, "CL");              
+LEDPanel Panel_CR (PWM_PIN3, "CR");
 
 /***********************************************************
 *                          SETUP                           *
@@ -53,11 +53,11 @@ void setup(){
 		Serial.begin(9600);
 		runningBrightVal = EEPROM.read(BRIGHT_LVL_EEPROM); // Set the usable current brightness to eeprom val
 		
-		pinMode(REMOTE_A_PIN, OUTPUT);
-		pinMode(REMOTE_B_PIN, OUTPUT);
-		pinMode(REMOTE_C_PIN, OUTPUT);
-		pinMode(REMOTE_D_PIN, OUTPUT);
-			
+		pinMode(REMOTE_A_PIN, INPUT);
+		pinMode(REMOTE_B_PIN, INPUT);
+		pinMode(REMOTE_C_PIN, INPUT);
+		pinMode(REMOTE_D_PIN, INPUT);
+		turnAllPanelsOff();
 		delay(1000);
 	digitalWrite(DIAG_PIN, LOW);
 }
@@ -99,7 +99,7 @@ void loop(){
 *                 readRemoteButtonStates                   *
 ***********************************************************/
 void readRemoteButtonStates(){
-  // Read both digitial inputs for the RF remote buttons and store as state
+  // Read digitial inputs for the RF remote buttons and store as state
 	remoteBtnA_state = digitalRead(REMOTE_A_PIN);
 	remoteBtnB_state = digitalRead(REMOTE_B_PIN);
 	remoteBtnC_state = digitalRead(REMOTE_C_PIN);

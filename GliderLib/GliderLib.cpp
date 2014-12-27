@@ -53,5 +53,5 @@ void LEDPanel::updateBrightness(uint8_t runningBrightness){
 		Serial.print("Setting ");
 		Serial.print(objName_);
 		Serial.print(" to brightness level ");
-		Serial.print(runningBrightness_);
+		Serial.println(runningBrightness_);
 }
